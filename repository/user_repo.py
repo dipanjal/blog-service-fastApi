@@ -2,13 +2,14 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 import models
 import schemas
+from utils.hashutils import HashUtils
 
 
 def create(request: schemas.User, db: Session):
     new_user = models.User(
         name=request.name,
         email=request.email,
-        password=request.password  # TODO: need bcrypt hashing here
+        password=HashUtils.bcrypt(request.password)
     )
     db.add(new_user)
     db.commit()
