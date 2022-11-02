@@ -8,8 +8,6 @@ class BlogBase(BaseModel):
 
 
 class Blog(BlogBase):
-    user_id: int
-
     class Config():
         orm_mode = True
 
@@ -48,5 +46,6 @@ class Token(BaseModel):
     token_type: str
 
 
-class TokenData(BaseModel):
+class CurrentUser(BaseModel):
     email: Optional[str] = None
+    id: Optional[int] = None

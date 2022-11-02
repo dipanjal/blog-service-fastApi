@@ -10,8 +10,8 @@ def get_all(db: Session):
     return blogs
 
 
-def create(request: schemas.Blog, db: Session):
-    new_blog = models.Blog(title=request.title, body=request.body, user_id=request.user_id)
+def create(request: schemas.Blog, user_id: int, db: Session):
+    new_blog = models.Blog(title=request.title, body=request.body, user_id=user_id)
     db.add(new_blog)
     db.commit()
     db.refresh(new_blog)
@@ -25,7 +25,7 @@ def get_by_id(id: int, db: Session):
     return blog
 
 
-def delete(id: int, db: Session):
+def delete(id: int, user_id: int, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
 
     if not blog.first():
@@ -36,7 +36,7 @@ def delete(id: int, db: Session):
     return 'done'
 
 
-def update(id: int, request: schemas.Blog, db: Session):
+def update(id: int, request: schemas.Blog, user_id: int, db: Session):
     blog = db.query(models.Blog).filter(models.Blog.id == id)
 
     if not blog.first():
