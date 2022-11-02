@@ -9,14 +9,12 @@ router = APIRouter(
     tags=['Users']
 )
 
-get_db = database.get_db
-
 
 @router.post('/', response_model=schemas.ShowUser)
-def create(request: schemas.User, db: Session = Depends(get_db)):
+def create(request: schemas.User, db: Session = Depends(database.get_db)):
     return user_repo.create(request, db)
 
 
 @router.get('/{id}', response_model=schemas.ShowUser)
-def get_by_id(id: int, db: Session = Depends(get_db)):
+def get_by_id(id: int, db: Session = Depends(database.get_db)):
     return user_repo.get_by_id(id, db)
