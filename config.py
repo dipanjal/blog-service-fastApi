@@ -11,3 +11,11 @@ class DBSettings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
+
+class JWTSettings(BaseSettings):
+    SECRET_KEY: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
+    class Config:
+        env_file = ".env"
